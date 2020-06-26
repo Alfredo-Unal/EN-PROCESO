@@ -141,68 +141,65 @@ class Asociatividad(GraphScene):
         )
         ejes2.add_coordinates()
 
-        graph11 = ParametricFunction(
-            lambda u: np.array([
-            u,
-            math.sqrt(u**3 - 2*u + 3),
-            0]),
-            color = RED, t_min = -1.8932891963044975, t_max = 2
-            ).shift(LEFT*3)
+        graph11 = ejes1.get_graph(lambda x : math.sqrt(x**3 - 2*x + 3),
+                                    color = GREEN,
+                                    x_min = -1.8932891963044975,
+                                    x_max = 2.7
+                                    )
 
-        graph12 = ParametricFunction(
-            lambda u: np.array([
-            u,
-            -math.sqrt(u**3 - 2*u + 3),
-            0]),
-            color = RED, t_min = -1.8932891963044975, t_max = 2
-            ).shift(LEFT*3)
+        graph12 = ejes1.get_graph(lambda x : -math.sqrt(x**3 - 2*x + 3),
+                                    color = GREEN,
+                                    x_min = -1.8932891963044975,
+                                    x_max = 2.7
+                                    )
 
-        graph21 = ParametricFunction(
-            lambda u: np.array([
-            u,
-            math.sqrt(u**3 - 2*u + 3),
-            0]),
-            color = RED, t_min = -1.8932891963044975, t_max = 2
-            ).shift(RIGHT*3)
+        graph21 = ejes2.get_graph(lambda x : math.sqrt(x**3 - 2*x + 3),
+                                    color = GREEN,
+                                    x_min = -1.8932891963044975,
+                                    x_max = 2.7
+                                    )
+        graph22 = ejes2.get_graph(lambda x : -math.sqrt(x**3 - 2*x + 3),
+                                    color = GREEN,
+                                    x_min = -1.8932891963044975,
+                                    x_max = 2.7
+                                    )
 
-        graph22 = ParametricFunction(
-            lambda u: np.array([
-            u,
-            -math.sqrt(u**3 - 2*u + 3),
-            0]),
-            color = RED, t_min = -1.8932891963044975, t_max = 2
-            ).shift(RIGHT*3)
-
-        #graph31 = self.get_graph(
-        #    lambda x : math.sqrt(x**3 - 2*x + 3),
-        #            color = GREEN,
-        #            x_min = -1.8932891963044975,
-        #            x_max = 2.7
-        #    ).shift(RIGHT*3)
-
-        grafica1 = VGroup(graph11, graph12, ejes1) #lista de Mobject
+        grafica1 = VGroup(ejes1, graph11, graph12) #lista de Mobject
         grafica2 = VGroup(ejes2, graph21, graph22)
 
         self.play(
-            ReplacementTransform(grafica1, grafica2),
+            ShowCreation(grafica1,run_time = 5),
+            ShowCreation(grafica2,run_time = 5),
         )
-
         self.wait(2)
-        #self.clear()
-        #self.play(
-        #    ShowCreation(graph11),
-        #    ShowCreation(graph12),
-        #    ShowCreation(ejes1),
-        #    ShowCreation(ejes2),
-        #    ShowCreation(graph21),
-        #    ShowCreation(graph22),
-        #    )
-        #self.wait(2)
 
-        punto11 = Dot()
-        #vector11 = self.input_to_graph_point(1,graph12)
-        #punto11.move_to(vector11)
+        punto11 = Dot(
+            ejes1.input_to_graph_point(1,graph11)[0]*RIGHT + ejes1.input_to_graph_point(1,graph11)*UP)
 
+        punto12 = Dot(
+            ejes1.input_to_graph_point(2,graph11)[0]*RIGHT + ejes1.input_to_graph_point(2,graph11)*UP)
 
-        self.add(punto11)
-        self.wait()
+        punto13 = Dot(
+            ejes1.input_to_graph_point(6-2*math.sqrt(14),graph12)[0]*RIGHT + ejes1.input_to_graph_point(6-2*math.sqrt(14),graph12)*UP)
+
+        punto14 = Dot(
+            ejes1.input_to_graph_point(0,graph11)[0]*RIGHT + ejes1.input_to_graph_point(0,graph11)[1]*UP)
+
+        puntos1 = VGroup(punto11, punto12, punto14)
+
+        punto21 = Dot(
+            ejes2.input_to_graph_point(1,graph21)[0]*RIGHT + ejes2.input_to_graph_point(1,graph21)*UP)
+
+        punto22 = Dot(
+            ejes2.input_to_graph_point(2,graph21)[0]*RIGHT + ejes2.input_to_graph_point(2,graph21)*UP)
+
+        punto23 = Dot(
+            ejes2.input_to_graph_point(6-2*math.sqrt(14),graph22)[0]*RIGHT + ejes2.input_to_graph_point(6-2*math.sqrt(14),graph22)*UP)
+
+        punto24 = Dot(
+            ejes2.input_to_graph_point(0,graph21)[0]*RIGHT + ejes2.input_to_graph_point(0,graph21)[1]*UP)
+
+        puntos2 = VGroup(punto21, punto22, punto24)
+
+        self.play(ShowCreation(puntos1,run_time = 3), ShowCreation(puntos2, run_time = 3))
+        self.wait(5)
