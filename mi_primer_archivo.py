@@ -175,31 +175,91 @@ class Asociatividad(GraphScene):
 
         punto11 = Dot(
             ejes1.input_to_graph_point(1,graph11)[0]*RIGHT + ejes1.input_to_graph_point(1,graph11)*UP)
+        texto11 = TexMobject("P")
+        texto11.next_to(ejes1.input_to_graph_point(1,graph11),UP)
+
+        Punto11 = VGroup(punto11,texto11)
 
         punto12 = Dot(
             ejes1.input_to_graph_point(2,graph11)[0]*RIGHT + ejes1.input_to_graph_point(2,graph11)*UP)
+        texto12 = TexMobject("Q")
+        texto12.next_to(ejes1.input_to_graph_point(2,graph11),UP)
+
+        Punto12 = VGroup(punto12,texto12)
 
         punto13 = Dot(
             ejes1.input_to_graph_point(6-2*math.sqrt(14),graph12)[0]*RIGHT + ejes1.input_to_graph_point(6-2*math.sqrt(14),graph12)*UP)
+        texto13 = TexMobject("R2")
+        texto13.next_to(ejes1.input_to_graph_point(6-2*math.sqrt(14),graph12),UP)
+
+        Punto13 = VGroup(punto13,texto13)
 
         punto14 = Dot(
             ejes1.input_to_graph_point(0,graph11)[0]*RIGHT + ejes1.input_to_graph_point(0,graph11)[1]*UP)
+        texto14 = TexMobject("C")
+        texto14.next_to(ejes1.input_to_graph_point(0,graph11),UP)
 
-        puntos1 = VGroup(punto11, punto12, punto14)
+        Punto14 = VGroup(punto14,texto14)
+
+        puntos1 = VGroup(Punto11, Punto12, Punto14)
 
         punto21 = Dot(
             ejes2.input_to_graph_point(1,graph21)[0]*RIGHT + ejes2.input_to_graph_point(1,graph21)*UP)
+        texto21 = TexMobject("P")
+        texto21.next_to(ejes2.input_to_graph_point(1,graph21),UP)
+
+        Punto21 = VGroup(punto21,texto21)
 
         punto22 = Dot(
             ejes2.input_to_graph_point(2,graph21)[0]*RIGHT + ejes2.input_to_graph_point(2,graph21)*UP)
+        texto22 = TexMobject("Q")
+        texto22.next_to(ejes2.input_to_graph_point(2,graph21),UP)
+
+        Punto22 = VGroup(punto22,texto22)
 
         punto23 = Dot(
             ejes2.input_to_graph_point(6-2*math.sqrt(14),graph22)[0]*RIGHT + ejes2.input_to_graph_point(6-2*math.sqrt(14),graph22)*UP)
+        texto23 = TexMobject("S1")
+        texto23.next_to(ejes2.input_to_graph_point(6-2*math.sqrt(14),graph22),UP)
+
+        Punto23 = VGroup(punto23,texto23)
 
         punto24 = Dot(
             ejes2.input_to_graph_point(0,graph21)[0]*RIGHT + ejes2.input_to_graph_point(0,graph21)[1]*UP)
+        texto24 = TexMobject("C")
+        texto24.next_to(ejes2.input_to_graph_point(0,graph21),UP)
 
-        puntos2 = VGroup(punto21, punto22, punto24)
+        Punto24 = VGroup(punto24,texto24)
 
-        self.play(ShowCreation(puntos1,run_time = 3), ShowCreation(puntos2, run_time = 3))
-        self.wait(5)
+        punto25 = Dot(
+            ejes2.input_to_graph_point(6-2*math.sqrt(14),graph21)[0]*RIGHT + ejes2.input_to_graph_point(6-2*math.sqrt(14),graph21)*UP)
+        texto25 = TexMobject("P+Q")
+        texto25.next_to(ejes2.input_to_graph_point(6-2*math.sqrt(14),graph21),UP)
+
+        Punto25 = VGroup(punto25,texto25)
+
+        puntos2 = VGroup(Punto21, Punto22, Punto24)
+
+        self.play(ShowCreation(puntos1,run_time = 2),
+            ShowCreation(puntos2, run_time = 2))
+        self.wait(2)
+
+        graph3 = ParametricFunction(
+            lambda u: u*(ejes2.input_to_graph_point(1,graph21)) + (1-u)*ejes2.input_to_graph_point(2,graph21)
+                , color = RED, t_min = 0, t_max = 3.5
+            )
+
+        self.play(
+            ShowCreation(graph3,run_time = 2),
+            ShowCreation(Punto23,run_time = 1.5),
+            )
+
+        graph4 = ParametricFunction(
+            lambda u: u*(ejes2.input_to_graph_point(6-2*math.sqrt(14),graph22)) + (1-u)*ejes2.input_to_graph_point(6-2*math.sqrt(14),graph21)
+                , color = RED, t_min = 0, t_max = 1
+            )
+
+        self.play(
+            ReplacementTransform(graph3,graph4),
+            ShowCreation(Punto25,run_time = 1.5),
+            )
