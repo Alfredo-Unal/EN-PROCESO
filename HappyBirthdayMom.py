@@ -28,10 +28,10 @@ class HearthMessage(GraphScene):
         heartL = ParametricFunction ( lambda t: heartPoint(self,-t), color = RED, t_min = 0, t_max = PI)
 
         mensaje1 = TextMobject ( "Feliz Cumplea\~nos " )
-        mensaje2 = TextMobject ( "Mam\\'a!!!")
-        mensaje2.set_color_by_tex("Mam\\'a!!!", RED)
+        mensaje2 = TextMobject ( "Mam\\'a")
+        mensaje2.set_color_by_tex("Mam\\'a", RED)
         mensaje = VGroup (mensaje1,mensaje2)
-        mensaje.arrange_submobjects(DOWN, buff=MED_LARGE_BUFF)
+        mensaje.arrange_submobjects(DOWN, buff=SMALL_BUFF)
         mensaje.to_corner (UR)
         
         self.play ( Write (mensaje), run_time = 2)
